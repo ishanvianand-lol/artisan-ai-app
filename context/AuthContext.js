@@ -22,12 +22,41 @@ export function AuthProvider({ children }) {
   // Google Sign In
   const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider()
+    provider.setCustomParameters({
+      prompt: 'select_account'
+    })
+    
     try {
       const result = await signInWithPopup(auth, provider)
+      console.log('Login successful:', result.user.displayName)
       return result
     } catch (error) {
-      console.error('Error signing in with Google:', error)
-      throw error
+      console.error('Error signing in with Google:', error.code, error.message)
+      
+      // Provide user-friendly error messages
+      let errorMessage = 'Login failed. Please try again.'
+      
+      switch (error.code) {
+        case 'auth/popup-closed-by-user':
+          errorMessage = 'Login was cancelled. Please try again.'
+          break
+        case 'auth/popup-blocked':
+          errorMessage = 'Popup was blocked. Please allow popups and try again.'
+          break
+        case 'auth/network-request-failed':
+          errorMessage = 'Network error. Please check your internet connection.'
+          break
+        case 'auth/too-many-requests':
+          errorMessage = 'Too many attempts. Please wait a moment and try again.'
+          break
+        case 'auth/configuration-not-found':
+          errorMessage = 'Configuration error. Please contact support.'
+          break
+        default:
+          errorMessage = `Login failed: ${error.message}`
+      }
+      
+      throw new Error(errorMessage)
     }
   }
 
