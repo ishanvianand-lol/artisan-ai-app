@@ -1,8 +1,13 @@
-import { Inter } from 'next/font/google'
+import { Poppins } from 'next/font/google'
 import './globals.css'
 import { AuthProvider } from '../context/AuthContext'
 
-const inter = Inter({ subsets: ['latin'] })
+const poppins = Poppins(
+  {
+    weight: "500"
+    
+  }
+)
 
 export const metadata = {
   title: 'ArtisanAI - Empowering Indian Craftspeople',
@@ -13,7 +18,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={poppins.className}>
         <AuthProvider>
           {children}
         </AuthProvider>

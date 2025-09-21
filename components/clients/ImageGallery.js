@@ -1,179 +1,227 @@
-'use client';
+'use client'
 
-import React, { useState } from 'react';
-import { Heart, Download, Share2, Star, Eye, ZoomIn } from 'lucide-react';
-import ImageModal from './ImageModal';
+import { useState } from 'react'
+import { Download, Heart, Share2, Maximize2, X, Copy, Star } from 'lucide-react'
 
-const ImageGallery = ({ images, viewMode, favorites, toggleFavorite }) => {
-  const [selectedImage, setSelectedImage] = useState(null);
+export default function ImageGallery({ images, onImageSelect }) {
+  const [selectedImage, setSelectedImage] = useState(null)
+  const [favorites, setFavorites] = useState([])
 
-  const handleDownload = async (image) => {
+  const toggleFavorite = (imageId) => {
+    setFavorites(prev => 
+      prev.includes(imageId) 
+        ? prev.filter(id => id !== imageId)
+        : [...prev, imageId]
+    )
+  }
+
+  const downloadImage = async (imageUrl, fileName) => {
     try {
-      const response = await fetch(image.url);
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = `artisan-ai-${image.id}.jpg`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      window.URL.revokeObjectURL(url);
+      const response = await fetch(imageUrl)
+      const blob = await response.blob()
+      const url = window.URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = fileName || 'artisan-ai-image.jpg'
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      window.URL.revokeObjectURL(url)
     } catch (error) {
-      console.error('Download failed:', error);
+      console.error('Download failed:', error)
     }
-  };
+  }
 
-  const handleShare = async (image) => {
+  const shareImage = async (image) => {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: 'Check out this AI artwork!',
-          text: `Amazing AI art: "${image.prompt}"`,
-          url: window.location.href
-        });
+          title: 'Check out this AI generated design!',
+          text: `Amazing ${image.style} design: ${image.prompt}`,
+          url: image.image
+        })
       } catch (error) {
-        console.error('Share failed:', error);
+        console.log('Share cancelled')
       }
     } else {
-      // Fallback to copying URL
-      navigator.clipboard.writeText(window.location.href);
-      alert('Link copied to clipboard!');
+      // Fallback: copy to clipboard
+      navigator.clipboard.writeText(image.image)
+      alert('Image URL copied to clipboard!')
     }
-  };
+  }
 
   return (
     <>
-      <div className={`grid gap-6 ${
-        viewMode === 'grid' 
-          ? 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4' 
-          : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
-      }`}>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {images.map((image) => (
-          <div
-            key={image.id}
-            className={`group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 ${
-              image.isNew ? 'ring-2 ring-purple-400 ring-opacity-60' : ''
-            }`}
-          >
-            <div className="relative overflow-hidden">
+          <div key={image.id} className="group relative">
+            <div className="aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-purple-100 to-pink-100 shadow-lg group-hover:shadow-2xl transition-all duration-300">
               <img
-                src={image.url}
+                src={image.image}
                 alt={image.prompt}
-                className={`w-full object-cover transition-transform duration-300 group-hover:scale-105 cursor-pointer ${
-                  viewMode === 'grid' ? 'h-64' : 'h-48'
-                }`}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 cursor-pointer"
                 onClick={() => setSelectedImage(image)}
+                loading="lazy"
               />
               
-              {/* New Badge */}
-              {image.isNew && (
-                <span className="absolute top-3 left-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-medium px-2 py-1 rounded-full animate-pulse">
-                  ✨ New
-                </span>
-              )}
-              
-              {/* Hover Overlay */}
-              <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                <div className="flex space-x-2">
-                  <button 
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedImage(image);
-                    }}
-                    className="bg-white text-gray-800 p-2 rounded-full hover:bg-gray-100 transition-colors"
-                    title="View Full Size"
-                  >
-                    <ZoomIn className="h-4 w-4" />
-                  </button>
-                  <button 
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleDownload(image);
-                    }}
-                    className="bg-white text-gray-800 p-2 rounded-full hover:bg-gray-100 transition-colors"
-                    title="Download"
-                  >
-                    <Download className="h-4 w-4" />
-                  </button>
-                  <button 
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleShare(image);
-                    }}
-                    className="bg-white text-gray-800 p-2 rounded-full hover:bg-gray-100 transition-colors"
-                    title="Share"
-                  >
-                    <Share2 className="h-4 w-4" />
-                  </button>
+              {/* Overlay with actions */}
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                <div className="p-4 w-full">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="bg-white/20 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs font-medium">
+                      {image.style}
+                    </span>
+                    <div className="flex items-center space-x-2">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          toggleFavorite(image.id)
+                        }}
+                        className="p-2 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-all"
+                      >
+                        <Heart
+                          className={`h-4 w-4 ${
+                            favorites.includes(image.id) 
+                              ? 'fill-red-500 text-red-500' 
+                              : 'text-white'
+                          }`}
+                        />
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          shareImage(image)
+                        }}
+                        className="p-2 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-all"
+                      >
+                        <Share2 className="h-4 w-4 text-white" />
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          downloadImage(image.image, `artisan-${image.id}.jpg`)
+                        }}
+                        className="p-2 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-all"
+                      >
+                        <Download className="h-4 w-4 text-white" />
+                      </button>
+                    </div>
+                  </div>
+                  <p className="text-white text-sm line-clamp-2 font-medium">
+                    {image.prompt}
+                  </p>
                 </div>
               </div>
-              
-              {/* Favorite Button */}
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  toggleFavorite(image.id);
-                }}
-                className="absolute top-3 right-3 p-2 bg-white/80 backdrop-blur-sm rounded-full hover:bg-white transition-colors"
-                title={favorites.has(image.id) ? 'Remove from Favorites' : 'Add to Favorites'}
-              >
-                <Heart
-                  className={`h-4 w-4 transition-colors ${
-                    favorites.has(image.id) ? 'text-red-500 fill-red-500' : 'text-gray-600'
-                  }`}
-                />
-              </button>
 
-              {/* View Count */}
-              <div className="absolute bottom-3 left-3 bg-black/50 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs flex items-center space-x-1">
-                <Eye className="h-3 w-3" />
-                <span>{Math.floor(Math.random() * 1000) + 100}</span>
+              {/* AI Badge */}
+              <div className="absolute top-3 left-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
+                ✨ AI
               </div>
-            </div>
-            
-            {/* Card Content */}
-            <div className="p-4">
-              <h3 className="font-semibold text-gray-800 mb-2 line-clamp-2" title={image.prompt}>
-                {image.prompt}
-              </h3>
-              <div className="flex items-center justify-between text-sm text-gray-500">
-                <div className="flex items-center space-x-1">
-                  <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
-                  <span>{image.rating}</span>
-                </div>
-                <div className="flex items-center space-x-1">
-                  <Download className="h-3 w-3" />
-                  <span>{image.downloads}</span>
-                </div>
-              </div>
-              
-              {/* Tags */}
-              {image.category && (
-                <div className="mt-2">
-                  <span className="inline-block bg-purple-100 text-purple-800 text-xs font-medium px-2 py-1 rounded-full">
-                    {image.category}
-                  </span>
+
+              {/* Favorite badge */}
+              {favorites.includes(image.id) && (
+                <div className="absolute top-3 right-3 bg-red-500 text-white p-2 rounded-full shadow-lg">
+                  <Heart className="h-4 w-4 fill-current" />
                 </div>
               )}
+            </div>
+
+            {/* Image info */}
+            <div className="mt-3">
+              <p className="text-sm text-gray-600 line-clamp-2 font-medium">
+                {image.prompt}
+              </p>
+              <div className="flex items-center justify-between mt-2">
+                <span className="text-xs text-gray-500">{image.timestamp}</span>
+                <div className="flex items-center space-x-1">
+                  <Star className="h-3 w-3 text-yellow-500 fill-current" />
+                  <span className="text-xs text-gray-600">4.8</span>
+                </div>
+              </div>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Image Modal */}
+      {/* Full Screen Image Modal */}
       {selectedImage && (
-        <ImageModal 
-          image={selectedImage}
-          onClose={() => setSelectedImage(null)}
-          onDownload={() => handleDownload(selectedImage)}
-          onShare={() => handleShare(selectedImage)}
-          isFavorite={favorites.has(selectedImage.id)}
-          onToggleFavorite={() => toggleFavorite(selectedImage.id)}
-        />
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="relative max-w-4xl w-full max-h-[90vh] bg-white rounded-3xl overflow-hidden shadow-2xl">
+            {/* Header */}
+            <div className="flex items-center justify-between p-6 border-b border-gray-200">
+              <div>
+                <h3 className="text-xl font-bold text-gray-800">AI Generated Design</h3>
+                <p className="text-gray-600">{selectedImage.timestamp}</p>
+              </div>
+              <button
+                onClick={() => setSelectedImage(null)}
+                className="p-2 hover:bg-gray-100 rounded-full transition-all"
+              >
+                <X className="h-6 w-6 text-gray-600" />
+              </button>
+            </div>
+
+            {/* Image */}
+            <div className="relative">
+              <img
+                src={selectedImage.image}
+                alt={selectedImage.prompt}
+                className="w-full max-h-[60vh] object-contain"
+              />
+            </div>
+
+            {/* Details */}
+            <div className="p-6">
+              <div className="mb-4">
+                <h4 className="font-semibold text-gray-800 mb-2">Prompt</h4>
+                <p className="text-gray-700 bg-gray-50 p-4 rounded-2xl">
+                  {selectedImage.prompt}
+                </p>
+              </div>
+
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-4">
+                  <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">
+                    {selectedImage.style}
+                  </span>
+                  <div className="flex items-center space-x-1">
+                    <Star className="h-4 w-4 text-yellow-500 fill-current" />
+                    <span className="text-sm text-gray-600">4.8 Rating</span>
+                  </div>
+                </div>
+
+                <div className="flex items-center space-x-3">
+                  <button
+                    onClick={() => toggleFavorite(selectedImage.id)}
+                    className={`p-3 rounded-full border-2 transition-all ${
+                      favorites.includes(selectedImage.id)
+                        ? 'border-red-500 bg-red-50 text-red-500'
+                        : 'border-gray-200 hover:border-red-300 text-gray-600'
+                    }`}
+                  >
+                    <Heart className={`h-5 w-5 ${favorites.includes(selectedImage.id) ? 'fill-current' : ''}`} />
+                  </button>
+                  
+                  <button
+                    onClick={() => shareImage(selectedImage)}
+                    className="p-3 border-2 border-gray-200 hover:border-blue-300 text-gray-600 hover:text-blue-600 rounded-full transition-all"
+                  >
+                    <Share2 className="h-5 w-5" />
+                  </button>
+                  
+                  <button
+                    onClick={() => downloadImage(selectedImage.image, `artisan-${selectedImage.id}.jpg`)}
+                    className="bg-gradient-to-r from-purple-500 to-pink-600 text-white px-6 py-3 rounded-full font-medium hover:shadow-lg transition-all flex items-center space-x-2"
+                  >
+                    <Download className="h-5 w-5" />
+                    <span>Download</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
     </>
-  );
-};
-
-export default ImageGallery;
+  )
+}
