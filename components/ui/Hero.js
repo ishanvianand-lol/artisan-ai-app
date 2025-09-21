@@ -1,6 +1,7 @@
 'use client'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef, useEffect, useState } from 'react'
+import Image from 'next/image';
 
 export default function Hero({ user, onLogin }) {
   const containerRef = useRef(null)

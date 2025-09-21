@@ -1,4 +1,5 @@
 import { X, Heart, ShoppingBag, Download, Share2, Star, Maximize2 } from 'lucide-react'
+import Image from 'next/image';
 
 // Wishlist Modal Component
 export function WishlistModal({ 

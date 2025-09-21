@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Download, Heart, Share2, Maximize2, X, Copy, Star } from 'lucide-react'
+import Image from 'next/image';
 
 export default function ImageGallery({ images, onImageSelect }) {
   const [selectedImage, setSelectedImage] = useState(null)

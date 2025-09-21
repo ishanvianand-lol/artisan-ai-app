@@ -3,11 +3,12 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { auth } from '@/lib/firebase'; // Corrected import path
-import AIPromptGenerator from '@/components/clients/AIPromptGenerator';
+
 import ProductCatalog from '../../components/ProductCatalog';
 import SocialIntegration from '../../components/SocialIntegration';
 import SmartProductPhotography from '../../components/SmartProductPhotography';
 import ProfileMenu from '@/components/ProfileMenu';
+import Image from 'next/image';
 
 export default function SellerDashboard() {
   const [userData, setUserData] = useState(null);

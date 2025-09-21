@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { X, Download, Share2, Heart, Star, Eye, Calendar } from 'lucide-react';
+import Image from 'next/image';
 
 const ImageModal = ({ image, onClose, onDownload, onShare, isFavorite, onToggleFavorite }) => {
   useEffect(() => {

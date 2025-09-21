@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { Search, Heart, ShoppingBag, User, Filter, Grid, List, Star, MapPin, Truck, ShieldCheck, Sparkles, Camera, TrendingUp, Award, Users, Zap } from 'lucide-react'
 
 // Import components
-import Header from '@/components/ui/Header'
 import ProductGrid from '@/components/client-ui/ProductGrid'
 import Sidebar from '@/components/client-ui/SideBar'
 import { WishlistModal, CartModal, NotificationToast } from '@/components/client-ui/Models'

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useLogout } from '@/components/logout';
+import Image from 'next/image';
 
 const ProfileMenu = ({ userData, products, setUserData }) => {
   const [showProfileMenu, setShowProfileMenu] = useState(false);

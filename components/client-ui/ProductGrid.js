@@ -1,4 +1,5 @@
 import { Heart, Star, MapPin, Truck, ShieldCheck, ShoppingBag, Grid, List } from 'lucide-react'
+import Image from 'next/image';
 
 export default function ProductGrid({ 
   products, 

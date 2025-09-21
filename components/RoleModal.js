@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { useAuth } from '../context/AuthContext'
+import Image from 'next/image';
 
 export default function RoleModal({ user, onClose }) {
   const router = useRouter()

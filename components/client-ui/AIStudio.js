@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Sparkles, Camera, Wand2, Palette, Download, Share2, Heart, X } from 'lucide-react'
+import Image from 'next/image';
 
 export default function AIStudio({ 
   generatedImages, 
