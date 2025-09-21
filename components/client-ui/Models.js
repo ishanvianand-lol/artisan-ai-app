@@ -34,7 +34,7 @@ export function WishlistModal({
           <div className="space-y-4">
             {products.filter(p => wishlist.includes(p.id)).map(product => (
               <div key={product.id} className="flex items-center space-x-4 p-4 bg-gradient-to-r from-pink-50 to-purple-50 rounded-2xl border border-pink-200">
-                <img src={product.image} alt={product.name} className="w-16 h-16 object-cover rounded-xl" />
+                <Image src={product.image} alt={product.name} className="w-16 h-16 object-cover rounded-xl" />
                 <div className="flex-1">
                   <h4 className="font-semibold text-gray-800">{product.name}</h4>
                   <p className="text-pink-600 font-bold">₹{product.price.toLocaleString()}</p>
@@ -95,7 +95,7 @@ export function CartModal({
             <div className="space-y-4">
               {cart.map(item => (
                 <div key={item.id} className="flex items-center space-x-4 p-4 bg-gradient-to-r from-pink-50 to-purple-50 rounded-2xl border border-pink-200">
-                  <img src={item.image} alt={item.name} className="w-16 h-16 object-cover rounded-xl" />
+                  <Image src={item.image} alt={item.name} className="w-16 h-16 object-cover rounded-xl" />
                   <div className="flex-1">
                     <h4 className="font-semibold text-gray-800">{item.name}</h4>
                     <p className="text-pink-600 font-bold">₹{item.price.toLocaleString()}</p>

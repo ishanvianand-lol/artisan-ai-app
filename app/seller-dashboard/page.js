@@ -129,7 +129,7 @@ export default function SellerDashboard() {
               <div className="glass-card rounded-3xl p-6 shadow-lg border border-orange-100">
                 <div className="text-center mb-6">
                   <div className="relative inline-block">
-                    <img
+                    <Image
                       src={userData.photo}
                       alt={userData.name}
                       className="w-20 h-20 rounded-2xl mx-auto mb-4 shadow-lg"
