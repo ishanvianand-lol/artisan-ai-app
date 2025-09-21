@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { auth } from '@/lib/firebase';
 // Profile Menu Component
@@ -125,7 +125,7 @@ const ProfileMenu = ({ userData, products, setUserData }) => {
               onClick={() => setShowDeleteDialog(true)}
               className="w-full flex items-center space-x-3 px-4 py-3 text-red-700 hover:bg-red-50 transition-colors text-left border-t border-gray-100"
             >
-              <span className="text-red-600">🗑️</span>
+              <span className="text-red-600">🗑</span>
               <div>
                 <p className="font-medium text-sm">Delete Account</p>
                 <p className="text-xs text-gray-500">Permanently delete your account</p>
@@ -177,7 +177,7 @@ const ProfileMenu = ({ userData, products, setUserData }) => {
           <div className="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl">
             <div className="text-center mb-6">
               <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-3xl">⚠️</span>
+                <span className="text-3xl">⚠</span>
               </div>
               <h3 className="text-xl font-bold text-gray-800 mb-2">Delete Account</h3>
               <p className="text-gray-600">This action cannot be undone. Your account and all data will be permanently deleted.</p>
@@ -712,7 +712,7 @@ const ProductCatalog = ({ products, setProducts }) => {
                   onClick={() => removeProduct(product.id)}
                   className="text-red-500 hover:text-red-700 transition-colors"
                 >
-                  🗑️
+                  🗑
                 </button>
               </div>
             </div>
@@ -1078,8 +1078,8 @@ export default function SellerDashboard() {
                       }`}>
                         <span className="text-lg">
                           {activity.type === 'order' ? '🛒' :
-                           activity.type === 'view' ? '👁️' :
-                           activity.type === 'review' ? '⭐' : '✏️'}
+                           activity.type === 'view' ? '👁' :
+                           activity.type === 'review' ? '⭐' : '✏'}
                         </span>
                       </div>
                       <div className="flex-1">

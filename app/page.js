@@ -140,17 +140,17 @@ export default function HomePage() {
                 onClick={() => handleRoleSelection('seller')}
                 className="bg-[#e8dcc6] border border-[#cbb48d] text-[#4a3a2c] rounded-2xl py-3 font-semibold hover:bg-[#d6c9ad] transition transform hover:scale-105"
               >
-                🎨 I'm an Artisan
+                🎨 I&apos;m an Artisan
               </button>
               <button
                 onClick={() => handleRoleSelection('buyer')}
                 className="bg-[#d3ceac] border border-[#bbac83] text-[#5a4f2c] rounded-2xl py-3 font-semibold hover:bg-[#bfb681] transition transform hover:scale-105"
               >
-                🛍️ I'm a Buyer
+                🛍️ I&apos;m a Buyer
               </button>
             </div>
             <button onClick={() => setShowRoleModal(false)} className="mt-6 text-sm text-[#9c8b62] hover:underline font-sans">
-              I'll decide later
+              Skip For Now
             </button>
           </div>
         </div>

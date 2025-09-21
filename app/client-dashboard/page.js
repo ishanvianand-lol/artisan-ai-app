@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import React, { useState } from 'react';
 import { Search, Wand2, MessageCircle, Star, Heart, ShoppingCart, Camera, Palette, Send, Sparkles, ArrowRight, CheckCircle, Filter, Grid3X3, List, SortAsc, Eye, Plus, Zap, Gift, User, LogOut, Bell, MapPin, Phone, Mail, Clock, Truck } from 'lucide-react';
 
@@ -244,9 +245,11 @@ const KalakariComplete = () => {
   const ProductCard = ({ product }) => (
     <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
       <div className="relative group">
-        <img
+        <Image
+        width={100}
+        height={100}
           src={product.image}
-          alt={product.name}
+            alt={product.name || "Product image"}
           className="w-full h-64 object-cover"
         />
         {product.badge && (
@@ -645,7 +648,9 @@ const KalakariComplete = () => {
                 {generatedImage ? (
                   <div className="space-y-4">
                     <div className="relative group">
-                      <img
+                      <Image
+                      width={100}
+                      height={100}
                         src={generatedImage}
                         alt="Generated craft design"
                         className="w-full rounded-xl shadow-lg"
@@ -713,9 +718,11 @@ const KalakariComplete = () => {
                 <div className="grid grid-cols-3 gap-3">
                   {[1, 2, 3, 4, 5, 6].map((item) => (
                     <div key={item} className="relative group cursor-pointer">
-                      <img
+                      <Image
+                      width={100}
+                      height={100}
                         src={`https://picsum.photos/200/200?random=${item}`}
-                        alt={`Recent design ${item}`}
+                        alt={`Recent design ${item}|| "Product image"`}
                         className="w-full h-20 object-cover rounded-lg"
                       />
                       <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-lg flex items-center justify-center">
@@ -756,7 +763,9 @@ const KalakariComplete = () => {
                 {generatedImage && (
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-3">Your Design</h3>
-                    <img
+                    <Image
+                    width={100}
+                    height={100}
                       src={generatedImage}
                       alt="Generated design"
                       className="w-full rounded-lg shadow-md"
@@ -778,7 +787,9 @@ const KalakariComplete = () => {
                         }`}
                       >
                         <div className="flex items-center space-x-4">
-                          <img
+                          <Image
+                          width={100}
+                          height={100}
                             src={artisan.image}
                             alt={artisan.name}
                             className="w-16 h-16 rounded-full object-cover"
@@ -862,7 +873,9 @@ const KalakariComplete = () => {
 
             <div className="p-6">
               <div className="flex items-center space-x-4 mb-4">
-                <img
+                <Image
+                width={100}
+                height={100}
                   src={selectedProduct.image}
                   alt={selectedProduct.name}
                   className="w-16 h-16 rounded-lg object-cover"

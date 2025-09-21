@@ -32,7 +32,7 @@ export const useLogout = () => {
         localStorage.clear();
         console.log("Account deleted and logged out.");
         router.push('/');
-        alert('🗑️ Your account has been permanently deleted. We\'re sorry to see you go!');
+        alert('🗑️ Your account has been permanently deleted. We&apos;re sorry to see you go!');
       } catch (error) {
         console.error("Account deletion failed:", error);
         alert("An error occurred during account deletion. Please try again.");

@@ -230,7 +230,7 @@ export default function HomePage() {
                   <span className="text-2xl">🎨</span>
                 </div>
                 <div className="text-left">
-                  <div className="text-xl font-bold">I'm an Artisan</div>
+                  <div className="text-xl font-bold">I&apos;m an Artisan</div>
                   <div className="text-sm opacity-90">Showcase my crafts and reach customers</div>
                 </div>
               </button>
@@ -243,7 +243,7 @@ export default function HomePage() {
                   <span className="text-2xl">🛍️</span>
                 </div>
                 <div className="text-left">
-                  <div className="text-xl font-bold">I'm a Buyer</div>
+                  <div className="text-xl font-bold">I&apos;m a Buyer</div>
                   <div className="text-sm opacity-90">Discover authentic handmade treasures</div>
                 </div>
               </button>
@@ -253,7 +253,7 @@ export default function HomePage() {
               onClick={() => setShowRoleModal(false)}
               className="mt-8 w-full text-gray-500 hover:text-gray-700 transition-colors font-medium"
             >
-              I'll decide later
+              Skip For Now
             </button>
           </div>
         </div>
