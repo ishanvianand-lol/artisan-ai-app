@@ -209,7 +209,7 @@ export default function ProductCatalog({ products, setProducts }) {
             <div key={product.id} className="border border-gray-200 rounded-xl p-4 hover:shadow-lg transition-all">
               <div className="aspect-square bg-gray-100 rounded-lg mb-4 overflow-hidden">
                 {product.imageUrl ? (
-                  <img 
+                  <Image 
                     src={product.imageUrl} 
                     alt={product.name}
                     className="w-full h-full object-cover"
@@ -358,7 +358,7 @@ export default function ProductCatalog({ products, setProducts }) {
                     <label className="block text-sm font-medium text-gray-700 mb-2">Preview</label>
                     <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden">
                       {newProduct.imagePreview ? (
-                        <img 
+                        <Image 
                           src={newProduct.imagePreview} 
                           alt="Preview"
                           className="w-full h-full object-cover"

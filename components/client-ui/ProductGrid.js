@@ -61,7 +61,7 @@ export default function ProductGrid({
             }`}
           >
             <div className={`relative ${viewMode === 'list' ? 'w-48' : ''}`}>
-              <img
+              <Image
                 src={product.image}
                 alt={product.name}
                 className={`w-full object-cover group-hover:scale-105 transition-transform ${

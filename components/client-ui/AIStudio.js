@@ -304,7 +304,7 @@ Examples:
             {generatedImages.slice(0, 9).map((item) => (
               <div key={item.id} className="group relative">
                 <div className="aspect-square rounded-3xl overflow-hidden border-3 border-purple-200 group-hover:border-purple-400 transition-all shadow-xl group-hover:shadow-2xl">
-                  <img
+                  <Image
                     src={item.image}
                     alt="AI Generated"
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 cursor-pointer"

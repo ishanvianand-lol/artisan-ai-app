@@ -31,7 +31,7 @@ const ImageModal = ({ image, onClose, onDownload, onShare, isFavorite, onToggleF
       <div className="bg-white rounded-2xl max-w-6xl max-h-[90vh] w-full overflow-hidden flex flex-col md:flex-row">
         {/* Image Section */}
         <div className="flex-1 relative bg-gray-100 flex items-center justify-center min-h-[300px] md:min-h-[500px]">
-          <img
+          <Image
             src={image.url}
             alt={image.prompt}
             className="max-w-full max-h-full object-contain"

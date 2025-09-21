@@ -83,7 +83,7 @@ export default function RoleModal({ user, onClose }) {
         <div className="modal-content rounded-3xl p-10 max-w-lg w-full shadow-2xl transform animate-scale-up">
           <div className="text-center mb-10">
             <div className="relative mb-6">
-              <img 
+              <Image 
                 src={user?.photoURL} 
                 alt={user?.displayName}
                 className="w-24 h-24 rounded-full mx-auto border-4 border-orange-200 shadow-lg"

@@ -56,7 +56,7 @@ export default function ImageGallery({ images, onImageSelect }) {
         {images.map((image) => (
           <div key={image.id} className="group relative">
             <div className="aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-purple-100 to-pink-100 shadow-lg group-hover:shadow-2xl transition-all duration-300">
-              <img
+              <Image
                 src={image.image}
                 alt={image.prompt}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 cursor-pointer"
@@ -163,7 +163,7 @@ export default function ImageGallery({ images, onImageSelect }) {
 
             {/* Image */}
             <div className="relative">
-              <img
+              <Image
                 src={selectedImage.image}
                 alt={selectedImage.prompt}
                 className="w-full max-h-[60vh] object-contain"

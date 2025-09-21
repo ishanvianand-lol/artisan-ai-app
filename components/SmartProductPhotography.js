@@ -277,7 +277,7 @@ const SmartProductPhotography = () => {
       }
       bgImg.src = backgroundOption.imageUrl
     }
-    img.src = capturedImage
+    Image.src = capturedImage
   }
 
   const analyzePhoto = async (imageData) => {
@@ -690,7 +690,7 @@ const SmartProductPhotography = () => {
               </>
             ) : (
               <>
-                <img 
+                <Image 
                   src={enhancedImage || capturedImage} 
                   alt="Captured product"
                   className="w-full h-full object-cover"

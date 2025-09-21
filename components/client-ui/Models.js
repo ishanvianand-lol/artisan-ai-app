@@ -171,7 +171,7 @@ export function ImageModal({
 
         {/* Image */}
         <div className="relative">
-          <img
+          <Image
             src={selectedImage.image}
             alt={selectedImage.prompt}
             className="w-full max-h-[60vh] object-contain"
