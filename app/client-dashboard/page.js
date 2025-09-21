@@ -50,7 +50,7 @@ const KalakariComplete = () => {
       category: "Art & Paintings",
       artisan: "Priya Sharma",
       location: "Madhubani, Bihar",
-      image: "https://images.unsplash.com/photo-1578321272176-b7bbc0679853?w=400&h=400&fit=crop",
+      image: "https://www.fizdi.com/peacock-painting-art-16432-107041-handpainted-art-painting-8in-x-11in/?srsltid=AfmBOoqLHQHzWB-WZEFe6yc4p1_HRdwUycEsTyCOwbGFq2BiUj6aKHwS",
       badge: "Bestseller",
       description: "Authentic Madhubani art featuring traditional peacock motifs"
     },
@@ -95,7 +95,7 @@ const KalakariComplete = () => {
       category: "Textiles",
       artisan: "Farida Begum",
       location: "Srinagar, Kashmir",
-      image: "https://images.unsplash.com/photo-1554568218-0f1715e72254?w=400&h=400&fit=crop",
+      image: "https://www.google.com/imgres?q=Pashmina%20Shawl%20-%20Hand%20Embroidered&imgurl=https%3A%2F%2Fwww.pashminagolden.com%2Fpashmina-cashmere%2Fembroidery-kashmiri-shawl-02.jpg&imgrefurl=https%3A%2F%2Fwww.pashminagolden.com%2Fkashmiri-embroidered-shawl.htm&docid=D5gbwLi8fR7Q-M&tbnid=9o2bKD2Xaug72M&vet=12ahUKEwivxuWhpeqPAxV1j68BHVJ3O20QM3oECBsQAA..i&w=1000&h=1500&hcb=2&ved=2ahUKEwivxuWhpeqPAxV1j68BHVJ3O20QM3oECBsQAA",
       badge: "Premium",
       description: "Authentic Kashmiri pashmina with intricate hand embroidery"
     },
@@ -722,7 +722,7 @@ const KalakariComplete = () => {
                       width={100}
                       height={100}
                         src={`https://picsum.photos/200/200?random=${item}`}
-                        alt={`Recent design ${item}|| "Product image"`}
+                        alt={`Recent design ${item}`}
                         className="w-full h-20 object-cover rounded-lg"
                       />
                       <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-lg flex items-center justify-center">
