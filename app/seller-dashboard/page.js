@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { auth } from '@/lib/firebase';
+import Image from 'next/image';
 // Profile Menu Component
 const ProfileMenu = ({ userData, products, setUserData }) => {
   const [showMenu, setShowMenu] = useState(false)
@@ -69,11 +70,13 @@ const ProfileMenu = ({ userData, products, setUserData }) => {
           <p className="text-sm text-gray-600">{userData.email}</p>
         </div>
         <div className="relative">
-          <img 
-            src={userData.photo} 
-            alt={userData.name}
-            className="w-12 h-12 rounded-2xl border-3 border-orange-200 shadow-lg"
-          />
+          <Image 
+  src={userData.photo} 
+  alt={userData.name}
+  width={48}
+  height={48}
+  className="w-12 h-12 rounded-2xl border-3 border-orange-200 shadow-lg"
+/>
           {uploadingPhoto && (
             <div className="absolute inset-0 bg-black/50 rounded-2xl flex items-center justify-center">
               <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
@@ -86,11 +89,13 @@ const ProfileMenu = ({ userData, products, setUserData }) => {
         <div className="absolute right-0 top-full mt-2 w-64 bg-white rounded-2xl shadow-2xl border border-gray-100 py-2 z-50">
           <div className="px-4 py-3 border-b border-gray-100">
             <div className="flex items-center space-x-3">
-              <img 
-                src={userData.photo} 
-                alt={userData.name}
-                className="w-10 h-10 rounded-xl"
-              />
+              <Image 
+  src={userData.photo} 
+  alt={userData.name}
+  width={40}
+  height={40}
+  className="w-10 h-10 rounded-xl"
+/>
               <div>
                 <p className="font-semibold text-gray-800 text-sm">{userData.name}</p>
                 <p className="text-xs text-gray-600">{userData.email}</p>
@@ -465,11 +470,13 @@ const SmartProductPhotography = () => {
       <div className="grid lg:grid-cols-2 gap-6">
         <div className="space-y-4">
           <div className="relative rounded-2xl overflow-hidden bg-black aspect-video">
-            <img 
-              src={enhancedImage || capturedImage} 
-              alt="Product for analysis"
-              className="w-full h-full object-cover"
-            />
+            <Image 
+  src={enhancedImage || capturedImage} 
+  alt="Product for analysis"
+  width={800}
+  height={450}
+  className="w-full h-full object-cover"
+/>
             
             {enhancedImage && (
               <div className="absolute top-4 right-4">
@@ -699,11 +706,13 @@ const ProductCatalog = ({ products, setProducts }) => {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map((product) => (
             <div key={product.id} className="bg-white rounded-2xl p-4 shadow-lg border border-gray-100">
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-full h-48 object-cover rounded-xl mb-4"
-              />
+              <Image
+  src={product.image}
+  alt={product.name}
+  width={400}
+  height={192}
+  className="w-full h-48 object-cover rounded-xl mb-4"
+/>
               <h4 className="font-semibold text-gray-800 mb-2">{product.name}</h4>
               <p className="text-gray-600 text-sm mb-3">{product.description}</p>
               <div className="flex items-center justify-between">
@@ -763,11 +772,13 @@ const ProductCatalog = ({ products, setProducts }) => {
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Product Image</label>
                 <div className="flex items-center space-x-3">
                   {newProduct.image && (
-                    <img
-                      src={newProduct.image}
-                      alt="Preview"
-                      className="w-16 h-16 object-cover rounded-xl"
-                    />
+                    <Image
+  src={newProduct.image}
+  alt="Preview"
+  width={64}
+  height={64}
+  className="w-16 h-16 object-cover rounded-xl"
+/>
                   )}
                   <button
                     type="button"
@@ -977,11 +988,13 @@ export default function SellerDashboard() {
               <div className="glass-card rounded-3xl p-6 shadow-lg border border-orange-100">
                 <div className="text-center mb-6">
                   <div className="relative inline-block">
-                    <img
-                      src={userData.photo}
-                      alt={userData.name}
-                      className="w-20 h-20 rounded-2xl mx-auto mb-4 shadow-lg"
-                    />
+                    <Image
+  src={userData.photo}
+  alt={userData.name}
+  width={80}
+  height={80}
+  className="w-20 h-20 rounded-2xl mx-auto mb-4 shadow-lg"
+/>
                     <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-3 border-white flex items-center justify-center">
                       <span className="text-white text-xs">✓</span>
                     </div>
