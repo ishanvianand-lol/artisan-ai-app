@@ -305,12 +305,15 @@ Examples:
             {generatedImages.slice(0, 9).map((item) => (
               <div key={item.id} className="group relative">
                 <div className="aspect-square rounded-3xl overflow-hidden border-3 border-purple-200 group-hover:border-purple-400 transition-all shadow-xl group-hover:shadow-2xl">
-                  <Image
-                    src={item.image}
-                    alt="AI Generated"
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 cursor-pointer"
-                    onClick={() => setSelectedImage(item)}
-                  />
+                <div className="relative w-full h-full">
+  <Image
+    src={item.image}
+    alt="AI Generated"
+    className="object-cover group-hover:scale-110 transition-transform duration-500 cursor-pointer"
+    onClick={() => setSelectedImage(item)}
+    fill
+  />
+</div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div className="absolute bottom-6 left-6 right-6">
                       <p className="text-white text-sm font-semibold mb-3 line-clamp-2">

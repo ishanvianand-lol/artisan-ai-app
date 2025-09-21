@@ -101,7 +101,13 @@ const ProfileMenu = ({ userData, products, setUserData }) => {
           <p className="text-sm text-gray-600">{userData.email}</p>
         </div>
         <div className="relative">
-          <Image src={userData.photo} alt={userData.name} className="w-12 h-12 rounded-2xl border-3 border-orange-200 shadow-lg" />
+          <Image 
+  src={userData.photo} 
+  alt={userData.name}
+  className="w-12 h-12 rounded-2xl border-3 border-orange-200 shadow-lg"
+  width={48}
+  height={48}
+/>
           {uploadingPhoto && (
             <div className="absolute inset-0 bg-black/50 rounded-2xl flex items-center justify-center">
               <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
@@ -119,8 +125,13 @@ const ProfileMenu = ({ userData, products, setUserData }) => {
         <div className="absolute right-0 top-full mt-2 w-64 bg-white rounded-2xl shadow-2xl border border-gray-100 py-2 z-50">
           <div className="px-4 py-3 border-b border-gray-100">
             <div className="flex items-center space-x-3">
-              <Image src={userData.photo} alt={userData.name} className="w-10 h-10 rounded-xl" />
-              <div>
+<Image
+  src={userData.photo}
+  alt={userData.name}
+  className="w-10 h-10 rounded-xl"
+  width={40}
+  height={40}
+/>              <div>
                 <p className="font-semibold text-gray-800 text-sm">{userData.name}</p>
                 <p className="text-xs text-gray-600">{userData.email}</p>
               </div>

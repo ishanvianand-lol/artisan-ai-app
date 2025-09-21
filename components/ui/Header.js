@@ -14,7 +14,7 @@ const Header = ({ mobileMenuOpen, setMobileMenuOpen, favorites }) => {
             <Link href="/" className="flex items-center">
               <Sparkles className="h-8 w-8 text-purple-600" />
               <span className="ml-2 text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                ArtisanAI
+                Kalakari
               </span>
             </Link>
             

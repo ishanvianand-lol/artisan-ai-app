@@ -134,7 +134,7 @@ export default function SocialIntegration() {
             {isConnected.whatsapp && (
               <button 
                 onClick={() => {
-                  const message = "Check out my handcrafted products on ArtisanAI! 🎨✨"
+                  const message = "Check out my handcrafted products on Kalakari! 🎨✨"
                   window.open(`${generateWhatsAppLink()}?text=${encodeURIComponent(message)}`, '_blank')
                 }}
                 className="w-full bg-green-100 hover:bg-green-200 text-green-800 py-2 px-4 rounded-lg text-sm transition-colors"

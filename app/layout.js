@@ -10,7 +10,7 @@ const poppins = Poppins(
 )
 
 export const metadata = {
-  title: 'ArtisanAI - Empowering Indian Craftspeople',
+  title: 'Kalakari - Empowering Indian Craftspeople',
   description: 'Connect traditional artisans with digital audiences using AI-powered storytelling and marketplace integration.',
   keywords: 'artisan, marketplace, AI, crafts, handmade, indian artisans, traditional crafts',
 }

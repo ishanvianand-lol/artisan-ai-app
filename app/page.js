@@ -1,10 +1,9 @@
 'use client'
-import Image from 'next/image';
-
+import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
-import { auth } from '../lib/firebase';
+import { auth } from '../lib/firebase'
 
 export default function HomePage() {
   const [showRoleModal, setShowRoleModal] = useState(false)
@@ -12,56 +11,39 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true)
   const router = useRouter()
 
-  // Simple auth state listener
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user)
       setLoading(false)
-      
       if (user) {
-        // Check if user has selected role
         const userRole = localStorage.getItem('userRole')
         if (userRole) {
-          if (userRole === 'seller') {
-            router.push('/seller-dashboard')
-          } else {
-            router.push('/client-dashboard')
-          }
+          if (userRole === 'seller') router.push('/seller-dashboard')
+          else router.push('/client-dashboard')
         } else {
           setShowRoleModal(true)
         }
       }
     })
-
     return () => unsubscribe()
   }, [router])
 
   const handleGoogleLogin = async () => {
     const provider = new GoogleAuthProvider()
-    provider.setCustomParameters({
-      prompt: 'select_account'
-    })
-
+    provider.setCustomParameters({ prompt: 'select_account' })
     try {
-      console.log('🚀 Attempting login...')
       const result = await signInWithPopup(auth, provider)
-      console.log('✅ Login successful:', result.user.displayName)
       setUser(result.user)
       setShowRoleModal(true)
     } catch (error) {
-      console.error('❌ Login error:', error.code, error.message)
-      
       let errorMessage = 'Login failed. Please try again.'
       switch (error.code) {
         case 'auth/popup-closed-by-user':
-          errorMessage = 'Login was cancelled. Please try again.'
-          break
+          errorMessage = 'Login was cancelled. Please try again.'; break
         case 'auth/popup-blocked':
-          errorMessage = 'Please allow popups and try again.'
-          break
+          errorMessage = 'Please allow popups and try again.'; break
         case 'auth/network-request-failed':
-          errorMessage = 'Network error. Check your connection.'
-          break
+          errorMessage = 'Network error. Check your connection.'; break
       }
       alert(errorMessage)
     }
@@ -75,185 +57,119 @@ export default function HomePage() {
       photo: user.photoURL,
       uid: user.uid
     }))
-
-    if (role === 'seller') {
-      router.push('/seller-dashboard')
-    } else {
-      router.push('/client-dashboard')
-    }
+    if (role === 'seller') router.push('/seller-dashboard')
+    else router.push('/client-dashboard')
     setShowRoleModal(false)
   }
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 flex items-center justify-center">
+      <div className="min-h-screen bg-[#f9f5ed] flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-orange-200 border-t-orange-600 rounded-full animate-spin"></div>
-          <p className="text-lg text-gray-700 mt-4 font-medium">Loading ArtisanAI...</p>
+          <div className="w-10 h-10 border-4 border-[#d3c7a2] border-t-[#9e5b2a] rounded-full animate-spin mx-auto"></div>
+          <p className="text-base text-[#7a6851] mt-4 font-semibold font-serif">Loading Kalakari...</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-20 right-10 w-32 h-32 bg-gradient-to-br from-orange-300 to-red-300 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 left-10 w-40 h-40 bg-gradient-to-br from-yellow-300 to-orange-300 rounded-full blur-3xl animate-pulse delay-1000"></div>
-      </div>
-
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-lg z-50 border-b border-orange-100">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center">
-                <span className="text-white font-bold text-lg">A</span>
-              </div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
-                ArtisanAI
-              </h1>
-            </div>
-
-            {!user ? (
-              <button 
-                onClick={handleGoogleLogin}
-                className="bg-gradient-to-r from-orange-600 to-red-600 text-white px-6 py-3 rounded-full font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300 flex items-center space-x-2"
-              >
-                <svg className="w-5 h-5" viewBox="0 0 24 24">
-                  <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                  <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                  <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/>
-                  <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-                </svg>
-                <span>Login with Google</span>
-              </button>
-            ) : (
-              <div className="flex items-center space-x-4">
-                <span className="text-gray-700 font-medium">
-                  Welcome, {user.displayName?.split(' ')[0]}!
-                </span>
-                <Image 
-                  src={user.photoURL} 
-                  alt={user.displayName}
-                  className="w-10 h-10 rounded-full border-2 border-orange-200"
-                />
-              </div>
-            )}
+    <div className="min-h-screen bg-[#f9f5ed] flex flex-col font-serif">
+      {/* NAVBAR */}
+      <nav className="px-10 py-6 flex justify-between items-center sticky top-0 z-30 bg-[#fdfaf4]/90 backdrop-blur-md shadow-sm border-b border-[#e6dcc9]">
+        <span className="text-3xl font-extrabold tracking-wide text-[#5c4033]">Kalakari</span>
+        {!user ? (
+          <button
+            onClick={handleGoogleLogin}
+            className="px-6 py-2 bg-[#9e5b2a] hover:bg-[#7a4320] text-[#fdf7ef] rounded-full font-semibold transition transform hover:scale-105"
+          >
+            Login
+          </button>
+        ) : (
+          <div className="flex items-center gap-3 text-[#6e593b]">
+            <span className="font-medium">{user.displayName?.split(' ')[0]}</span>
+            <Image src={user.photoURL} alt={user.displayName} className="rounded-full border-2 border-[#cbb48d]" width={40} height={40} />
           </div>
-        </div>
+        )}
       </nav>
 
-      {/* Hero Section */}
-      <section className="pt-32 pb-20">
-        <div className="container mx-auto px-6 text-center">
-          <div className="inline-block bg-orange-100 text-orange-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
-            🇮🇳 Celebrating Indian Heritage
-          </div>
-          
-          <h1 className="text-6xl lg:text-7xl font-bold leading-tight mb-8 text-gray-900">
-            Reviving
-            <br />
-            <span className="bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
-              Traditional
-            </span>
-            <br />
-            Craftsmanship
+      {/* HERO */}
+      <main className="relative flex-1 flex flex-col md:flex-row items-center px-10 md:px-20 py-20 gap-10 overflow-hidden bg-[#fdf8ef]">
+        {/* Decorative background shapes */}
+        <div className="absolute top-10 left-1/6 w-40 h-40 bg-[#f1e6d2] rounded-full opacity-40 -z-10 animate-pulse-slow"></div>
+        <div className="absolute bottom-20 right-1/4 w-48 h-48 bg-[#e5d5b5] rounded-full opacity-30 -z-10 rotate-12 animate-fadeInSlow"></div>
+        <div className="absolute top-1/3 right-0 w-32 h-32 bg-[#dcd1b5] rounded-full opacity-25 -z-10 translate-y-6 animate-bounce-slow"></div>
+        <div className="absolute bottom-10 left-0 w-24 h-24 bg-[#f3e2c8] rounded-full opacity-20 -z-10 rotate-6 animate-fadeIn"></div>
+        <div className="absolute top-1/2 left-1/2 w-16 h-16 bg-[#e8d8b0] rounded-full opacity-15 -z-10 animate-spin-slow"></div>
+
+        {/* Left block */}
+        <div className="flex-1 space-y-6 animate-fadeIn text-center md:text-left">
+          <h1 className="text-5xl md:text-6xl font-bold leading-snug text-[#4a3a2c]">
+            Discover <br /> <span className="italic text-[#9e5b2a]">Handmade Elegance</span>
           </h1>
-          
-          <p className="text-xl text-gray-600 leading-relaxed mb-10 max-w-2xl mx-auto">
-            Empowering local artisans with AI-driven storytelling and digital marketplace tools 
-            to connect authentic Indian crafts with global audiences.
+          <p className="text-base md:text-lg text-[#6d5c47] max-w-md mx-auto md:mx-0 font-sans">
+            Authentic artisan creations — minimal, warm and timeless. Curated for your unique space.
           </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            {!user && (
-              <button 
-                onClick={handleGoogleLogin}
-                className="bg-gradient-to-r from-orange-600 to-red-600 text-white px-8 py-4 rounded-2xl font-semibold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-300"
-              >
-                Start Your Journey 🚀
-              </button>
-            )}
-            <button className="border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-2xl font-semibold text-lg hover:border-orange-600 hover:text-orange-600 transition-all duration-300">
-              Watch Demo
+          {!user && (
+            <button
+              onClick={handleGoogleLogin}
+              className="px-10 py-3 bg-[#9e5b2a] hover:bg-[#7a4320] text-white rounded-full font-semibold shadow-md transition transform hover:scale-105 hover:-translate-y-1"
+            >
+              Continue with Google
             </button>
-          </div>
+          )}
+        </div>
 
-          <div className="flex justify-center items-center space-x-12 text-center">
-            <div>
-              <div className="text-3xl font-bold text-gray-900">500+</div>
-              <div className="text-gray-600">Active Artisans</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-gray-900">2,000+</div>
-              <div className="text-gray-600">Products Listed</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-gray-900">15+</div>
-              <div className="text-gray-600">States Covered</div>
-            </div>
+        {/* Right visual */}
+        <div className="flex-1 flex justify-center md:justify-end items-center animate-fadeInUp relative">
+          <div className="w-64 h-64 md:w-72 md:h-72 rounded-full bg-gradient-to-br from-[#f1e6d2] to-[#e5d5b5] shadow-inner flex items-center justify-center border border-[#d0c1a3]">
+            <span className="text-6xl md:text-7xl">🏺</span>
           </div>
         </div>
-      </section>
+      </main>
 
-      {/* Role Selection Modal */}
+      {/* ROLE MODAL */}
       {showRoleModal && user && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white/95 backdrop-blur-xl rounded-3xl p-10 max-w-lg w-full shadow-2xl border border-orange-100">
-            <div className="text-center mb-10">
-              <Image 
-                src={user.photoURL} 
-                alt={user.displayName}
-                className="w-24 h-24 rounded-full mx-auto mb-6 border-4 border-orange-200 shadow-lg"
-              />
-              
-              <h2 className="text-3xl font-bold text-gray-800 mb-3">
-                Welcome, {user.displayName?.split(' ')[0]}!
-              </h2>
-              <p className="text-gray-600 text-lg">
-                How would you like to experience ArtisanAI?
-              </p>
-            </div>
-
-            <div className="space-y-6">
+        <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 p-6">
+          <div className="bg-[#f9f5ed] rounded-3xl shadow-xl p-8 max-w-sm w-full border border-[#d0c1a3] flex flex-col items-center text-center animate-fadeInUp">
+            <Image src={user.photoURL} alt={user.displayName} className="rounded-full border-4 border-[#cbb48d] mb-4" width={72} height={72} />
+            <h3 className="text-2xl font-semibold text-[#4a3a2c] mb-2 select-text">Welcome, {user.displayName?.split(' ')[0]}!</h3>
+            <p className="mb-6 text-[#6d5c47] font-sans">How will you use Kalakari?</p>
+            <div className="flex flex-col gap-4 w-full">
               <button
                 onClick={() => handleRoleSelection('seller')}
-                className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white p-6 rounded-2xl font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300 flex items-center space-x-5"
+                className="bg-[#e8dcc6] border border-[#cbb48d] text-[#4a3a2c] rounded-2xl py-3 font-semibold hover:bg-[#d6c9ad] transition transform hover:scale-105"
               >
-                <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center">
-                  <span className="text-2xl">🎨</span>
-                </div>
-                <div className="text-left">
-                  <div className="text-xl font-bold">I'm an Artisan</div>
-                  <div className="text-sm opacity-90">Showcase my crafts and reach customers</div>
-                </div>
+                🎨 I'm an Artisan
               </button>
-
               <button
                 onClick={() => handleRoleSelection('buyer')}
-                className="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white p-6 rounded-2xl font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300 flex items-center space-x-5"
+                className="bg-[#d3ceac] border border-[#bbac83] text-[#5a4f2c] rounded-2xl py-3 font-semibold hover:bg-[#bfb681] transition transform hover:scale-105"
               >
-                <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center">
-                  <span className="text-2xl">🛍️</span>
-                </div>
-                <div className="text-left">
-                  <div className="text-xl font-bold">I'm a Buyer</div>
-                  <div className="text-sm opacity-90">Discover authentic handmade treasures</div>
-                </div>
+                🛍️ I'm a Buyer
               </button>
             </div>
-
-            <button
-              onClick={() => setShowRoleModal(false)}
-              className="mt-8 w-full text-gray-500 hover:text-gray-700 transition-colors font-medium"
-            >
+            <button onClick={() => setShowRoleModal(false)} className="mt-6 text-sm text-[#9c8b62] hover:underline font-sans">
               I'll decide later
             </button>
           </div>
         </div>
       )}
+
+      {/* Tailwind animations */}
+      <style jsx>{`
+        @keyframes fadeInSlow { 0% { opacity: 0; } 100% { opacity: 1; } }
+        .animate-fadeInSlow { animation: fadeInSlow 3s ease-in forwards; }
+
+        @keyframes pulse-slow { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        .animate-pulse-slow { animation: pulse-slow 6s ease-in-out infinite; }
+
+        @keyframes bounce-slow { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        .animate-bounce-slow { animation: bounce-slow 5s ease-in-out infinite; }
+
+        @keyframes spin-slow { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .animate-spin-slow { animation: spin-slow 20s linear infinite; }
+      `}</style>
     </div>
   )
 }

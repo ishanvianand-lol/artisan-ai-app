@@ -91,7 +91,7 @@ export default function Hero({ user, onLogin }) {
               </div>
             </div>
             <div className="text-2xl font-black tracking-tight text-stone-100 relative">
-              ARTISAN
+              KALAKARI
               <div className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-orange-500 to-red-600" />
             </div>
           </div>
@@ -133,11 +133,14 @@ export default function Hero({ user, onLogin }) {
                   {user.displayName?.split(' ')[0].toUpperCase()}
                 </span>
                 <div className="w-10 h-10 relative">
-                  <Image 
-                    src={user.photoURL} 
-                    alt={user.displayName}
-                    className="w-full h-full object-cover grayscale"
-                  />
+                <div className="relative w-full h-full">
+  <Image
+    src={user.photoURL}
+    alt={user.displayName}
+    className="object-cover grayscale"
+    fill
+  />
+</div>
                   <div className="absolute inset-0 bg-orange-500/20" />
                 </div>
               </div>
@@ -285,11 +288,14 @@ export default function Hero({ user, onLogin }) {
                 }}
               />
               
-              <Image 
-                src="https://images.unsplash.com/photo-1565717112365-fd2d29c5c9b3?w=800&h=1000&fit=crop&crop=center"
-                alt="Master artisan forging"
-                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
-              />
+             <div className="relative w-full h-full">
+  <Image
+    src="https://images.unsplash.com/photo-1565717112365-fd2d29c5c9b3?w=800&h=1000&fit=crop&crop=center"
+    alt="Master artisan forging"
+    className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+    fill
+  />
+</div>
               
               {/* Industrial Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-orange-900/60 via-transparent to-black/40" />

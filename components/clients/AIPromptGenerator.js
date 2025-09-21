@@ -237,11 +237,14 @@ Examples:
             {generatedImages.slice(0, 9).map((item) => (
               <div key={item.id} className="group relative">
                 <div className="aspect-square rounded-2xl overflow-hidden border-3 border-purple-200 group-hover:border-purple-400 transition-all shadow-lg group-hover:shadow-2xl">
-                  <Image
-                    src={item.image}
-                    alt="AI Generated"
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                  />
+                 <div className="relative w-full h-full">
+  <Image
+    src={item.image}
+    alt="AI Generated"
+    className="object-cover group-hover:scale-110 transition-transform duration-300"
+    fill
+  />
+</div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
                     <div className="absolute bottom-4 left-4 right-4">
                       <p className="text-white text-sm font-medium mb-2 line-clamp-2">

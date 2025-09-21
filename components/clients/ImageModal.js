@@ -32,11 +32,14 @@ const ImageModal = ({ image, onClose, onDownload, onShare, isFavorite, onToggleF
       <div className="bg-white rounded-2xl max-w-6xl max-h-[90vh] w-full overflow-hidden flex flex-col md:flex-row">
         {/* Image Section */}
         <div className="flex-1 relative bg-gray-100 flex items-center justify-center min-h-[300px] md:min-h-[500px]">
-          <Image
-            src={image.url}
-            alt={image.prompt}
-            className="max-w-full max-h-full object-contain"
-          />
+         <div className="relative max-w-full max-h-full">
+  <Image
+    src={image.url}
+    alt={image.prompt}
+    className="object-contain"
+    fill
+  />
+</div>
           
           {/* Close Button */}
           <button
@@ -103,7 +106,7 @@ const ImageModal = ({ image, onClose, onDownload, onShare, isFavorite, onToggleF
                 <p><span className="font-medium">Dimensions:</span> 1024 x 1024</p>
                 <p><span className="font-medium">Format:</span> PNG</p>
                 <p><span className="font-medium">Size:</span> 2.3 MB</p>
-                <p><span className="font-medium">AI Model:</span> ArtisanAI v2.0</p>
+                <p><span className="font-medium">AI Model:</span> Kalakari v2.0</p>
               </div>
             </div>
 

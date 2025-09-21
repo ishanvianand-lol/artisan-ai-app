@@ -164,11 +164,14 @@ export default function ImageGallery({ images, onImageSelect }) {
 
             {/* Image */}
             <div className="relative">
-              <Image
-                src={selectedImage.image}
-                alt={selectedImage.prompt}
-                className="w-full max-h-[60vh] object-contain"
-              />
+             <div className="relative w-full max-h-[60vh]">
+  <Image
+    src={selectedImage.image}
+    alt={selectedImage.prompt}
+    className="object-contain"
+    fill
+  />
+</div>
             </div>
 
             {/* Details */}

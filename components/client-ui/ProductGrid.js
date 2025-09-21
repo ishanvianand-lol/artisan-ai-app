@@ -62,13 +62,14 @@ export default function ProductGrid({
             }`}
           >
             <div className={`relative ${viewMode === 'list' ? 'w-48' : ''}`}>
-              <Image
-                src={product.image}
-                alt={product.name}
-                className={`w-full object-cover group-hover:scale-105 transition-transform ${
-                  viewMode === 'list' ? 'h-48' : 'h-64'
-                }`}
-              />
+              <div className={`relative w-full ${viewMode === 'list' ? 'h-48' : 'h-64'}`}>
+  <Image
+    src={product.image}
+    alt={product.name}
+    className="object-cover group-hover:scale-105 transition-transform"
+    fill
+  />
+</div>
               
               {product.discount > 0 && (
                 <div className="absolute top-3 left-3 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">

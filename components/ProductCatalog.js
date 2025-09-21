@@ -210,11 +210,14 @@ export default function ProductCatalog({ products, setProducts }) {
             <div key={product.id} className="border border-gray-200 rounded-xl p-4 hover:shadow-lg transition-all">
               <div className="aspect-square bg-gray-100 rounded-lg mb-4 overflow-hidden">
                 {product.imageUrl ? (
+                  <div className="relative w-full h-full">
                   <Image 
                     src={product.imageUrl} 
                     alt={product.name}
-                    className="w-full h-full object-cover"
+                    className="object-cover"
+                    fill 
                   />
+                </div>
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-4xl">
                     🎨
@@ -359,11 +362,14 @@ export default function ProductCatalog({ products, setProducts }) {
                     <label className="block text-sm font-medium text-gray-700 mb-2">Preview</label>
                     <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden">
                       {newProduct.imagePreview ? (
-                        <Image 
-                          src={newProduct.imagePreview} 
-                          alt="Preview"
-                          className="w-full h-full object-cover"
-                        />
+                        <div className="relative w-full h-full">
+  <Image 
+    src={newProduct.imagePreview} 
+    alt="Preview"
+    className="object-cover"
+    fill 
+  />
+</div>
                       ) : (
                         <div className="w-full h-full flex items-center justify-center text-4xl text-gray-400">
                           🖼️

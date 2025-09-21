@@ -84,11 +84,13 @@ export default function RoleModal({ user, onClose }) {
         <div className="modal-content rounded-3xl p-10 max-w-lg w-full shadow-2xl transform animate-scale-up">
           <div className="text-center mb-10">
             <div className="relative mb-6">
-              <Image 
-                src={user?.photoURL} 
-                alt={user?.displayName}
-                className="w-24 h-24 rounded-full mx-auto border-4 border-orange-200 shadow-lg"
-              />
+             <Image
+  src={user?.photoURL}
+  alt={user?.displayName}
+  className="w-24 h-24 rounded-full mx-auto border-4 border-orange-200 shadow-lg"
+  width={96}
+  height={96}
+/>
               <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white flex items-center justify-center">
                 <span className="text-white text-xs">✓</span>
               </div>
@@ -98,7 +100,9 @@ export default function RoleModal({ user, onClose }) {
               Welcome, {user?.displayName?.split(' ')[0]}!
             </h2>
             <p className="text-gray-600 text-lg">
-              How would you like to experience <span className="font-semibold text-orange-600">ArtisanAI</span>?
+              How would you like to experience <span className="font-semibold text-orange-600">
+                Kalakari
+                </span>?
             </p>
           </div>
 
@@ -113,7 +117,7 @@ export default function RoleModal({ user, onClose }) {
                 </div>
                 <div className="flex-1">
                   <h3 className="text-xl font-bold text-gray-800 mb-1" style={{ fontFamily: 'Playfair Display' }}>
-                    I'm an Artisan
+                    I&apos;m an Artisan
                   </h3>
                   <p className="text-gray-600">
                     Showcase my crafts, tell my story, and reach global customers
@@ -142,7 +146,7 @@ export default function RoleModal({ user, onClose }) {
                 </div>
                 <div className="flex-1">
                   <h3 className="text-xl font-bold text-gray-800 mb-1" style={{ fontFamily: 'Playfair Display' }}>
-                    I'm a Buyer
+                    I&apos;m a Buyer
                   </h3>
                   <p className="text-gray-600">
                     Discover authentic handmade treasures and support artisans
@@ -167,7 +171,7 @@ export default function RoleModal({ user, onClose }) {
               onClick={onClose}
               className="text-gray-500 hover:text-gray-700 transition-colors font-medium"
             >
-              I'll decide later
+              Skip For Now
             </button>
           </div>
         </div>
@@ -175,21 +179,3 @@ export default function RoleModal({ user, onClose }) {
     </>
   )
 }
-
-// Add this CSS to your globals.css
-/*
-@keyframes scale-up {
-  from {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.animate-scale-up {
-  animation: scale-up 0.3s ease-out;
-}
-*/
